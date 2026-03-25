@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>素振りカウンター ～剣の道～</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;700;800&family=Zen+Antique&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 背景エフェクト -->
+  <div class="bg-overlay"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- ヘッダー -->
+  <header class="header">
+    <div class="mon-crest">⚔</div>
+    <h1 class="app-title">剣の道</h1>
+    <p class="app-subtitle">～ 素振りカウンター ～</p>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <main class="main-content">
+
+    <!-- 称号エリア -->
+    <section class="title-section">
+      <p class="title-label">現在の称号</p>
+      <div class="title-badge" id="titleBadge">
+        <span class="title-icon" id="titleIcon">🌾</span>
+        <span class="title-text" id="titleText">ただの村人</span>
+      </div>
+      <p class="title-flavor" id="titleFlavor">「まだ木刀も重そうだな…」</p>
+    </section>
+
+    <!-- 武器エリア -->
+    <section class="weapon-section">
+      <p class="title-label">装備中の武器</p>
+      <div class="weapon-display">
+        <span class="weapon-icon" id="weaponIcon">🗡️</span>
+        <div class="weapon-info">
+          <span class="weapon-name" id="weaponName">なまくら</span>
+          <span class="weapon-grade-badge grade-common" id="weaponGrade">並</span>
+        </div>
+        <button class="weapon-change-btn" id="weaponChangeBtn">武器変更</button>
+      </div>
+      <p class="weapon-effect" id="weaponEffect">特殊効果なし</p>
+    </section>
+
+    <!-- カウント表示エリア -->
+    <section class="count-section">
+      <p class="count-label">累計素振り回数</p>
+      <div class="count-display">
+        <span class="count-number" id="countDisplay">0</span>
+        <span class="count-unit">回</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progressBar"></div>
+        <p class="progress-label" id="progressLabel">次の称号まで あと <b>50</b> 回</p>
+      </div>
+    </section>
+
+    <!-- 素振りボタン -->
+    <section class="button-section">
+      <div class="button-glow"></div>
+      <button class="swing-btn" id="swingBtn" aria-label="素振りする">
+        <span class="btn-kanji">振</span>
+        <span class="btn-sub">タップで素振り！</span>
+      </button>
+      <p class="button-hint">↑ここを連打せよ↑</p>
+    </section>
+
+    <!-- 本日の記録 -->
+    <section class="stats-section">
+      <div class="stat-card">
+        <span class="stat-icon">📅</span>
+        <span class="stat-val" id="todayCount">0</span>
+        <span class="stat-lbl">今日の回数</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🔥</span>
+        <span class="stat-val" id="streakCount">0</span>
+        <span class="stat-lbl">連続日数</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">🏆</span>
+        <span class="stat-val" id="bestCount">0</span>
+        <span class="stat-lbl">最高記録</span>
+      </div>
+    </section>
+
+    <!-- リセットボタン -->
+    <button class="reset-btn" id="resetBtn">記録をリセットする</button>
+
+  </main>
+
+  <!-- ランクアップ演出モーダル -->
+  <div class="rankup-modal" id="rankupModal">
+    <div class="rankup-inner">
+      <div class="rankup-flash"></div>
+      <p class="rankup-label">称号獲得！</p>
+      <div class="rankup-icon" id="rankupIcon">⚔️</div>
+      <p class="rankup-title" id="rankupTitle">流浪の剣客</p>
+      <p class="rankup-msg" id="rankupMsg">「ついに覚醒…！」</p>
+    </div>
+  </div>
+
+  <!-- 武器解放演出モーダル -->
+  <div class="rankup-modal" id="weaponUnlockModal">
+    <div class="rankup-inner">
+      <div class="rankup-flash"></div>
+      <p class="rankup-label">武器入手！</p>
+      <div class="rankup-icon" id="weaponUnlockIcon">⚔️</div>
+      <p class="rankup-title" id="weaponUnlockName">打刀</p>
+      <span class="weapon-grade-badge grade-upper" id="weaponUnlockGrade">上</span>
+      <p class="rankup-msg" id="weaponUnlockFlavor">「ようやく刀を握る資格を得たな」</p>
+    </div>
+  </div>
+
+  <!-- 武器選択モーダル -->
+  <div class="weapon-select-modal" id="weaponSelectModal">
+    <div class="weapon-select-inner">
+      <p class="weapon-select-title">━ 武器選択 ━</p>
+      <div class="weapon-list" id="weaponList"></div>
+      <button class="weapon-select-close" id="weaponSelectClose">閉じる</button>
+    </div>
+  </div>
+
+  <!-- ボーナス気合い表示 -->
+  <div class="bonus-flash" id="bonusFlash">気合い ＋１</div>
+
+  <!-- Firebase SDK (compat) -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
