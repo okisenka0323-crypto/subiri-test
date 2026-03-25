@@ -40,10 +40,17 @@ const DEVICE_ID = getDeviceId();
 // ===================================
 
 const RANKS = [
-  { min: 0,   name: "ただの村人",     icon: "🌾", flavor: "「まだ木刀も重そうだな…」",        rankClass: "rank-0", nextAt: 50   },
-  { min: 50,  name: "流浪の剣客",     icon: "⚔️", flavor: "「腕は立つが、まだ荒削りよ」",    rankClass: "rank-1", nextAt: 100  },
-  { min: 100, name: "修羅の兵法者",   icon: "🔥", flavor: "「その眼…只者ではないな」",        rankClass: "rank-2", nextAt: 500  },
-  { min: 500, name: "天下無双の剣豪", icon: "👑", flavor: "「もはや語る言葉もない……」",       rankClass: "rank-3", nextAt: null }
+  { min: 0,     name: "ただの村人",       icon: "🌾", flavor: "「まだ木刀も重そうだな…」",                               rankClass: "rank-0",  nextAt: 30    },
+  { min: 30,    name: "木剣の見習い",     icon: "🪵", flavor: "「まずは型から覚えるがよい」",                             rankClass: "rank-1",  nextAt: 100   },
+  { min: 100,   name: "道場の雑用係",     icon: "🧹", flavor: "「掃除と素振り、それが修行よ」",                           rankClass: "rank-2",  nextAt: 250   },
+  { min: 250,   name: "足軽剣士",         icon: "🛡️", flavor: "「戦場の端くれには立てるようになったな」",                 rankClass: "rank-3",  nextAt: 500   },
+  { min: 500,   name: "武者修行中",       icon: "👣", flavor: "「旅の空の下、ひたすらに腕を磨け」",                       rankClass: "rank-4",  nextAt: 800   },
+  { min: 800,   name: "流浪の剣客",       icon: "⚔️", flavor: "「腕は立つが、まだ荒削りよ」",                             rankClass: "rank-5",  nextAt: 1200  },
+  { min: 1200,  name: "名うての侍",       icon: "🏯", flavor: "「その名、諸国に広まり始めておるぞ」",                     rankClass: "rank-6",  nextAt: 2000  },
+  { min: 2000,  name: "修羅の兵法者",     icon: "🔥", flavor: "「その眼…只者ではないな」",                               rankClass: "rank-7",  nextAt: 3500  },
+  { min: 3500,  name: "剣聖の域",         icon: "🌟", flavor: "「剣に魂が宿り始めておる」",                               rankClass: "rank-8",  nextAt: 6000  },
+  { min: 6000,  name: "天下無双の剣豪",   icon: "👑", flavor: "「もはや語る言葉もない……」",                               rankClass: "rank-9",  nextAt: 10000 },
+  { min: 10000, name: "万物の理の剣士",   icon: "💫", flavor: "「剣と宇宙が一体となった……おぬしは、もはや人を超えた存在よ」", rankClass: "rank-10", nextAt: null  }
 ];
 
 const WEAPONS = [
@@ -357,9 +364,23 @@ weaponChangeBtn.addEventListener("pointerdown",   (e) => { e.stopPropagation(); 
 resetBtn.addEventListener("click", async () => {
   if (confirm("⚠️ 本当にリセットしますか？\n「すべての武功が消えますぞ…！」")) {
     totalCount = todayCount = streak = bestCount = currentWeaponId = swingCtr = 0;
-    localStorage.clear();
+    // kendo_device_id は残す（Firestoreの同一ドキュメントに上書き保存するため）
+    ["kendo_total","kendo_today","kendo_date","kendo_streak",
+     "kendo_best","kendo_prev_rank","kendo_weapon","kendo_swing_ctr"
+    ].forEach(k => localStorage.removeItem(k));
     await saveToFirestore(); // Firestoreもリセット
     updateUI();
+  }
+});
+
+// ===================================
+//   アプリ終了時に未保存データをフラッシュ
+// ===================================
+
+window.addEventListener("beforeunload", () => {
+  if (saveTimer !== null) {
+    clearTimeout(saveTimer);
+    saveToFirestore();
   }
 });
 

@@ -17,9 +17,16 @@
   --text-main:    #e8dcc8;
   --text-dim:     #7a8098;
   --rank-0:       #888899;   /* 村人 */
-  --rank-1:       #6db6d4;   /* 剣客 */
-  --rank-2:       #e07040;   /* 修羅 */
-  --rank-3:       #f0c040;   /* 天下無双 */
+  --rank-1:       #7ab88a;   /* 見習い */
+  --rank-2:       #8899cc;   /* 雑用係 */
+  --rank-3:       #6db6d4;   /* 足軽 */
+  --rank-4:       #88aaee;   /* 武者 */
+  --rank-5:       #aa88cc;   /* 剣客 */
+  --rank-6:       #cc9944;   /* 侍 */
+  --rank-7:       #e07040;   /* 修羅 */
+  --rank-8:       #dd5577;   /* 剣聖 */
+  --rank-9:       #f0c040;   /* 天下無双 */
+  --rank-10:      #ffffff;   /* 万物の理 */
   --font-main:    'Shippori Mincho B1', serif;
   --font-title:   'Zen Antique', serif;
 }
@@ -158,17 +165,39 @@ header, main { position: relative; z-index: 1; }
 }
 
 /* ランク別カラー */
-.title-text.rank-0 { color: var(--rank-0); text-shadow: none; }
-.title-text.rank-1 { color: var(--rank-1); text-shadow: 0 0 12px rgba(109,182,212,0.5); }
-.title-text.rank-2 { color: var(--rank-2); text-shadow: 0 0 16px rgba(224,112,64,0.6); }
-.title-text.rank-3 {
-  color: var(--rank-3);
+.title-text.rank-0  { color: var(--rank-0);  text-shadow: none; }
+.title-text.rank-1  { color: var(--rank-1);  text-shadow: 0 0 10px rgba(122,184,138,0.5); }
+.title-text.rank-2  { color: var(--rank-2);  text-shadow: 0 0 10px rgba(136,153,204,0.5); }
+.title-text.rank-3  { color: var(--rank-3);  text-shadow: 0 0 12px rgba(109,182,212,0.5); }
+.title-text.rank-4  { color: var(--rank-4);  text-shadow: 0 0 12px rgba(136,170,238,0.5); }
+.title-text.rank-5  { color: var(--rank-5);  text-shadow: 0 0 14px rgba(170,136,204,0.6); }
+.title-text.rank-6  { color: var(--rank-6);  text-shadow: 0 0 14px rgba(204,153,68,0.6); }
+.title-text.rank-7  { color: var(--rank-7);  text-shadow: 0 0 16px rgba(224,112,64,0.6); }
+.title-text.rank-8  { color: var(--rank-8);  text-shadow: 0 0 18px rgba(221,85,119,0.7); animation: crimsonPulse 2.5s ease-in-out infinite; }
+.title-text.rank-9  {
+  color: var(--rank-9);
   text-shadow: 0 0 20px rgba(240,192,64,0.7), 0 0 40px rgba(240,192,64,0.3);
   animation: goldenPulse 2s ease-in-out infinite;
+}
+.title-text.rank-10 {
+  color: var(--rank-10);
+  animation: transcendentPulse 4s ease-in-out infinite;
+}
+
+@keyframes crimsonPulse {
+  0%, 100% { text-shadow: 0 0 18px rgba(221,85,119,0.7), 0 0 36px rgba(221,85,119,0.3); }
+  50%       { text-shadow: 0 0 28px rgba(221,85,119,1),   0 0 56px rgba(221,85,119,0.5); }
 }
 @keyframes goldenPulse {
   0%, 100% { text-shadow: 0 0 20px rgba(240,192,64,0.7), 0 0 40px rgba(240,192,64,0.3); }
   50%       { text-shadow: 0 0 30px rgba(240,192,64,1),   0 0 60px rgba(240,192,64,0.5); }
+}
+@keyframes transcendentPulse {
+  0%   { color: #ffffff; text-shadow: 0 0 20px rgba(255,255,255,0.9), 0 0 50px rgba(240,192,64,0.4); }
+  25%  { color: #ddeeff; text-shadow: 0 0 25px rgba(180,220,255,0.9), 0 0 60px rgba(100,180,255,0.4); }
+  50%  { color: #fff8ee; text-shadow: 0 0 25px rgba(255,240,200,0.9), 0 0 60px rgba(255,200,100,0.4); }
+  75%  { color: #f0eeff; text-shadow: 0 0 25px rgba(220,200,255,0.9), 0 0 60px rgba(180,120,255,0.4); }
+  100% { color: #ffffff; text-shadow: 0 0 20px rgba(255,255,255,0.9), 0 0 50px rgba(240,192,64,0.4); }
 }
 
 .title-flavor {
@@ -224,7 +253,7 @@ header, main { position: relative; z-index: 1; }
   margin: 0.6rem auto 0;
   position: relative;
 }
-.progress-bar-wrap > div:first-child {
+.progress-track {
   height: 4px;
   background: rgba(200,150,30,0.15);
   border-radius: 99px;
